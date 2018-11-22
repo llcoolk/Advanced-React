@@ -5,4 +5,5 @@ const Sell = props => (
     <p>Sell!</p>
   </div>
 );
+
 export default Sell;
