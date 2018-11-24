@@ -1,3 +1,5 @@
+const db = require("../db");
+
 const Mutations = {
   async createItem(parent, args, ctx, info) {
     // TODO: Check if they are logged in
