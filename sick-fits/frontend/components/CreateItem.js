@@ -30,8 +30,8 @@ class CreateItem extends Component {
   state = {
     title: "Cool Shoes",
     description: "I love those Shoes",
-    image: "dog.jpg",
-    largeImage: "large-dog.jpg",
+    image: "",
+    largeImage: "",
     price: 1000
   };
   handleChange = e => {
