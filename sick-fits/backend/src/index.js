@@ -8,17 +8,18 @@ const server = createServer();
 
 server.express.use(cookieParser());
 
+// TODO Use express middleware to populate current user
 // decode the JWT so we can get the user ID on each request
-server.express.use((req, res, next) => {
-  const { token } = req.cookies;
-  if (token) {
-    const { userId } = jwt.verify(token, process.env.APP_SECRET);
-    //put the userid onto the req for future requests to access
-    req.userId = userId;
-  }
-  console.log(token);
-  next();
-});
+// server.express.use((req, res, next) => {
+//   const { token } = req.cookies;
+//   if (token) {
+//     const { userId } = jwt.verify(token, process.env.APP_SECRET);
+//     //put the userid onto the req for future requests to access
+//     req.userId = userId;
+//   }
+//   console.log(token);
+//   next();
+// });
 
 server.start(
   {
