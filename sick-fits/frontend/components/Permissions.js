@@ -42,26 +42,28 @@ const Permissions = props => (
       // console.log(data) ||
       <div>
         <Error error={error} />
-        <div>
-          <h2>Manage Permissions</h2>
-          <Table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                {possiblePermissions.map(permission => (
-                  <th key={permission}>{permission}</th>
+        {data.users && (
+          <div>
+            <h2>Manage Permissions</h2>
+            <Table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  {possiblePermissions.map(permission => (
+                    <th key={permission}>{permission}</th>
+                  ))}
+                  <th>👇🏻</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.users.map(user => (
+                  <UserPermissions user={user} key={user.id} />
                 ))}
-                <th>👇🏻</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.users.map(user => (
-                <UserPermissions user={user} key={user.id} />
-              ))}
-            </tbody>
-          </Table>
-        </div>
+              </tbody>
+            </Table>
+          </div>
+        )}
       </div>
     )}
   </Query>
@@ -81,7 +83,7 @@ class UserPermissions extends React.Component {
     permissions: this.props.user.permissions
     // this is ok because we are using it as seeding of initial state with data
   };
-  handlePermissionChange = e => {
+  handlePermissionChange = (e, updatePermissions) => {
     const checkbox = e.target;
     // console.log(e.target.value);
     // console.log(e.target.checked);
@@ -96,7 +98,7 @@ class UserPermissions extends React.Component {
         permission => permission !== checkbox.value
       );
     }
-    this.setState({ permissions: updatedPermissions });
+    this.setState({ permissions: updatedPermissions }, updatePermissions);
     console.log(updatedPermissions);
   };
   render() {
@@ -129,7 +131,9 @@ class UserPermissions extends React.Component {
                       type="checkbox"
                       checked={this.state.permissions.includes(permission)}
                       value={permission}
-                      onChange={this.handlePermissionChange}
+                      onChange={e =>
+                        this.handlePermissionChange(e, updatePermissions)
+                      }
                     />
                   </label>
                 </td>
