@@ -7,6 +7,8 @@ import Supreme from "./styles/Supreme";
 import CloseButton from "./styles/CloseButton";
 import SickButton from "./styles/SickButton";
 import CartItem from "./CartItem";
+import calcTotalPrice from "../lib/calcTotalPrice";
+import formatMoney from "../lib/formatMoney";
 
 const LOCAL_STATE_QUERY = gql`
   query {
@@ -30,26 +32,24 @@ const Cart = () => (
           {toggleCart => (
             <Query query={LOCAL_STATE_QUERY}>
               {({ data }) => (
-                // console.log(data) || (
                 <CartStyles open={data.cartOpen}>
                   <header>
                     <CloseButton onClick={toggleCart} title="close">
                       &times;
                     </CloseButton>
-                    <Supreme>{me.name}'s 🛒</Supreme>
+                    <Supreme>{me.name}'s Cart</Supreme>
                     <p>
                       You Have {me.cart.length} Item
-                      {me.cart.length <= 1 ? "" : "s"} in your cart.
+                      {me.cart.length === 1 ? "" : "s"} in your cart.
                     </p>
                   </header>
                   <ul>
                     {me.cart.map(cartItem => (
                       <CartItem key={cartItem.id} cartItem={cartItem} />
-                      // <li>{cartItem.id}</li>
                     ))}
                   </ul>
                   <footer>
-                    <p>$10.10</p>
+                    <p>{formatMoney(calcTotalPrice(me.cart))}</p>
                     <SickButton>Checkout</SickButton>
                   </footer>
                 </CartStyles>
