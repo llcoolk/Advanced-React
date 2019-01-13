@@ -1,4 +1,4 @@
-[Sick-fits](https://sickfits-next-prod-llcoolk.herokuapp.com)
+[Click here for production site](https://sickfits-next-prod-llcoolk.herokuapp.com)
 
 ![Advanced React + GraphQL](https://advancedreact.com/images/ARG/arg-facebook-share.png)
 
